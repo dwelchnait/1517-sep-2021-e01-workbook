@@ -12,7 +12,7 @@ namespace PracticeConsole.Data
         //the characteristics will be
         //  Title, supervisory level, years of employment within that job
 
-        //the 4 components of a class are
+        //the 4 components of a class definition are
         //  data field 
         //  property
         //  constructor
@@ -26,6 +26,7 @@ namespace PracticeConsole.Data
         //normally this delcaration is a private access type
         //one does NOT want an outsider user to directly interact with the variable
         private string _Title;
+        private double _Years;
 
         //Properties
         //These are access techniques to retrieve or set data in your class without
@@ -65,9 +66,86 @@ namespace PracticeConsole.Data
             } 
         }
 
+        //Auto Implemented Properties
+        //
+        // these properties different only in syntax
+        // each property is responsible for a single piece of data
+        // these properties do NOT reference a declared private data member of their class
+        // The system generates an internal storage area of the return data type
+        // The system manages the internal storage for the assessor and mutator
+        // there is NO additional logic applied to the data value
+        //
         //using an enum to declare a variable
-        public SupervisoryLevel Level { get; set; }
+        //this property is using a private set which means that the Level property
+        //      will only allow an outside user (Program) to access the associate value
+        //the private set must be done within the class either in a constructor or a behaviour of the
+        //      class
+        public SupervisoryLevel Level { get; private set; }
 
-        public double Years { get; set; }
+        //the property Years could be code as either a fully implemented property (as shown) or
+        //   as an auto-omplemented property
+        public double Years 
+        { 
+            get { return _Years; }
+            set { _Years = value; } 
+        }
+
+        //Constructors
+        //is to initialize the created instance (physical object) of the class (conceptual definition)
+        //constructor(s) are optional
+        //
+        //if your class definition has NO constructor code, then the data members / auto implemented 
+        //      properties are set to the C# default data type value
+        //
+        //you can code one or more constructors in your class definition
+        //IF YOU CODE A CONSTRUCTOR FOR THE CLASS, YOU ARE RESPONSIBLE FOR ALL CONSTRUCTORS USED BY
+        //          THE CLASS!!!!
+        //
+        //generally, if you are going to code your own contructor(s) you code two types
+        //      Default: this constructor do NOT take in any ways: it mimics the default system constructor
+        //      Greedie: this constructor has a list of parameters, one for each property, declare for incoming data
+        //
+        //  syntax:     accesstype classname([list of parameters]) { constructor code body }
+        //
+        //Default constructor
+        public Employment()
+        {
+            //constructor body
+            //you COULD assign literal values to your Properties within this constructor
+            Level = SupervisoryLevel.Entry;  //0
+            Title = "Unknown";
+        }
+
+        //Greedie constructor
+        public Employment(string title, SupervisoryLevel level, double years)
+        {
+            Title = title;
+            Level = level;
+            Years = years;
+        }
+
+        //Behaviours (aka methods)
+        //Behaviours are no different thn methods elsewhere
+        //
+        //syntax  accesstype returndatatype BehaviourName([list of parameters]) { code body }
+        //
+        //This class has a private set for the Level property
+        //the set for the Level property can be done in either a constructor or behaviour
+        //this is an example of placing data into the Level property outside of a constructor
+        
+        public void SetEmployeeResponsibility(SupervisoryLevel level)
+        {
+            //maybe you might need to do some type of logical processing to assign the 
+            //    value to the property with the private set
+            Level = level;
+        }
+
+        //there maybe times you wish to obtain all the data in your instance all at once for display
+        //generally to accomplish this, your class overrides the .ToString() method of classes
+        public override string ToString()
+        {
+            //in this example, return the data values in a comma separater value string
+            return $"{Title},{Level},{Years}";
+        }
     }
 }
