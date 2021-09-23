@@ -58,7 +58,15 @@ namespace PracticeConsole
             {
                 Console.WriteLine($"\t{item.ToString()}");
             }
-            
+
+            //using a readonly non static class which can hold data
+            //at the time of instanation, you must supply all required value data
+            //      to your new instance
+            EmploymentReadOnly altJob = new EmploymentReadOnly("Art Director", SupervisoryLevel.Supervisor, 4.5);
+            Console.WriteLine($"\n\n*****\nEmployement ReadOnly\n\t{altJob.Title},{altJob.Level},{altJob.Years}\n*****\n");
+
+
+
             Employment badjob;
             Person badperson;
             try
