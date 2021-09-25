@@ -48,6 +48,7 @@ namespace PracticeConsole.Data
                 }
             }
         }
+        public ResidentAddress Address;
 
         //List<Employment> property
         //this is an example of a Composition class property
@@ -68,11 +69,12 @@ namespace PracticeConsole.Data
 
         public Person() { }
 
-        public Person(string firstname, string lastname, List<Employment> positions)
+        public Person(string firstname, string lastname, List<Employment> positions, ResidentAddress Address)
         {
             FirstName = firstname;
             LastName = lastname;
             EmploymentPositions = positions;
+            this.Address = Address;
         }
     }
 }

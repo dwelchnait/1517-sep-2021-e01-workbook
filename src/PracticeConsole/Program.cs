@@ -35,6 +35,19 @@ namespace PracticeConsole
 
 
             //declare and load Employment instance using object instantiation
+            //source
+            //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/how-to-initialize-objects-by-using-an-object-initializer
+            //object initializer
+            //declaring an instance using object initantiation does so without
+            //explicitly invoking a constructor type.
+            //The compiler processes object initializers by first accessing the
+            //  parameterles instance constructor and then processing the member 
+            //  initializations.
+            //You must use an object initializer if you are defining an anonymous type
+            //
+            //this works whether you have explicitly coded constructors in your class
+            //  definition or not
+
             job1 = new Employment()
             {
                 Title = "Gander Cooking Club",
@@ -43,16 +56,33 @@ namespace PracticeConsole
             job1.SetEmployeeResponsibility(SupervisoryLevel.Owner);
             jobs.Add(job1); //add to the jobs List<T> where T is Employment
 
-            Person me = new Person()
+            //struct sample
+            //remember structs are value types, not reference types
+            //can initialize via constructor or object initializer
+            // ResidentAddress address = new ResidentAddress(123, "Maple St.", null, null, "Edmonton", "AB");
+            ResidentAddress address = new ResidentAddress
+            {
+                //Number = 123, //when field is readonly in struct definition
+                Address1 = "Maple St.",
+                City = "Edmonton",
+                ProvinceState = "AB"
+
+            };
+               
+
+            Person me = new Person
             {
                 FirstName = "don",
                 LastName = "welch",
+                Address = address, 
                 EmploymentPositions = jobs
             };
 
             //display the contents of Person
             Console.WriteLine("Person:\n");
-            Console.WriteLine($"{me.LastName}, {me.FirstName}: \n");
+            Console.WriteLine($"{me.LastName}, {me.FirstName} \n");
+            Console.WriteLine($"{me.Address.Number} {me.Address.Address1} \n" +
+                $"{me.Address.City}, {me.Address.ProvinceState}");
             Console.WriteLine("Past/Present Employment:\n");
             foreach (Employment item in me.EmploymentPositions)
             {
