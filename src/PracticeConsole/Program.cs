@@ -1,4 +1,4 @@
-﻿using PracticeConsole.Data;
+﻿using PracticeConsole.Data;  //point to the appropriate namespace
 using System;
 using System.Collections.Generic;
 //using static System.Console;
@@ -48,7 +48,7 @@ namespace PracticeConsole
             //this works whether you have explicitly coded constructors in your class
             //  definition or not
 
-            job1 = new Employment()
+            job1 = new Employment
             {
                 Title = "Gander Cooking Club",
                 Years = 1.2
@@ -59,15 +59,15 @@ namespace PracticeConsole
             //struct sample
             //remember structs are value types, not reference types
             //can initialize via constructor or object initializer
-            // ResidentAddress address = new ResidentAddress(123, "Maple St.", null, null, "Edmonton", "AB");
-            ResidentAddress address = new ResidentAddress
-            {
-                //Number = 123, //when field is readonly in struct definition
-                Address1 = "Maple St.",
-                City = "Edmonton",
-                ProvinceState = "AB"
+             ResidentAddress address = new ResidentAddress(123, "Maple St.", null, null, "Edmonton", "AB");
+            //ResidentAddress address = new ResidentAddress
+            //{
+            //    //Number = 123, //when field is readonly in struct definition
+            //    Address1 = "Maple St.",
+            //    City = "Edmonton",
+            //    ProvinceState = "AB"
 
-            };
+            //};
                
 
             Person me = new Person

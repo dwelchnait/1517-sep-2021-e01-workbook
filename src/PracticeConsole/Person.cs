@@ -67,7 +67,10 @@ namespace PracticeConsole.Data
         //      extended to also have access to the Transportation class.
         public List<Employment> EmploymentPositions { get; set; }
 
-        public Person() { }
+        public Person() 
+        {
+            EmploymentPositions = new List<Employment>();
+        }
 
         public Person(string firstname, string lastname, List<Employment> positions, ResidentAddress Address)
         {
@@ -75,6 +78,8 @@ namespace PracticeConsole.Data
             LastName = lastname;
             EmploymentPositions = positions;
             this.Address = Address;
+            EmploymentPositions = new List<Employment>();
+
         }
     }
 }
