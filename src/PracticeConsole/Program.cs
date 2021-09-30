@@ -9,7 +9,73 @@ namespace PracticeConsole
     {
         static void Main(string[] args)
         {
-            
+            //ClassObjectReview();
+            ArrayReview();
+        }
+
+        public static void ArrayReview()
+        {
+            //Declare a single-dimensional array size 5
+            int lsArray1 = 0;
+            int lsArray2 = 0;
+
+            int lsArray3 = 0;
+
+            int[] array1 = new int[5];
+            PrintArray(array1, 5, "declare int array size 5");
+            lsArray1 = 0;
+
+            //Declare and set array elements
+            int[] array2 = new int[] {1, 2, 3, 4, 5 };
+            PrintArray(array2, 5, "declare and set int array size 5");
+            lsArray2 = 5;
+
+            //alternate syntax
+            int[] array3 = { 1, 2, 3, 4, 5 };
+            PrintArray(array3, 5, "alternative declare and set int array size 5");
+            lsArray3 = 5;
+
+            //add an value to array1
+            //compare physical size to logical size, is there room
+            if (array1.Length > lsArray1)
+            {
+                Random rnd = new Random();
+                int position = rnd.Next(0, 5);
+                array1[position] = 15;
+                lsArray1++;
+            }
+            PrintArray(array1, 5, "declare int array size 5");
+
+            //remove element 3 from array2
+            //determine the logic size
+            //index of the element to remove
+            array2[2] = array2[lsArray2 - 1];
+            lsArray2--;
+            PrintArray(array2, 5, "declare and set int array size 5");
+
+            string filerecord = "don, 1986, edmonton, ab";
+            string[] values = filerecord.Split(',');
+            int i = 1;
+            Console.WriteLine($"Number of values is {values.Length}");
+            foreach(var item in values)
+            {
+                Console.WriteLine($"item {i} is {item}");
+                i++;
+            }
+
+        }
+
+        public static void PrintArray(int[] array, int logicalsize, string comment)
+        {
+            Console.WriteLine($"{comment}\n");
+            for (int i = 0; i < logicalsize; i++)
+            {
+                Console.Write($"{array[i]}, ");
+            }
+            Console.WriteLine("\n");
+        }
+        public static void ClassObjectReview()
+        { 
             List<Employment> jobs = new List<Employment>();
 
             //declare and load Employment instance separately
