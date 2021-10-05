@@ -147,5 +147,20 @@ namespace PracticeConsole.Data
             //in this example, return the data values in a comma separater value string
             return $"{Title},{Level},{Years}";
         }
+
+       public static Employment Parse(string text)
+        {
+            string[] parts = text.Split(',');
+            if (parts.Length != 3)
+            {
+                throw new System.FormatException("Input string is not in the correct CSV format for an Employment object");
+            }
+            //covert the string array elements into the appropriate data type of the
+            //  Employment class
+            string title = parts[0];
+            SupervisoryLevel level = (SupervisoryLevel)Enum.Parse(typeof(SupervisoryLevel), parts[1]);
+            double years = double.Parse(parts[2]);
+            return new Employment(title, level, years);
+        }
     }
 }

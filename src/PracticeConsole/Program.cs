@@ -1,16 +1,93 @@
 ﻿using PracticeConsole.Data;  //point to the appropriate namespace
 using System;
 using System.Collections.Generic;
+using System.IO;            //File IO
 //using static System.Console;
 
 namespace PracticeConsole
 {
     class Program
     {
+        private const string ArrayFileName = "IntData.dat";
+        private const string CSVFileName = "EmploymentData.dat";
+
         static void Main(string[] args)
         {
             //ClassObjectReview();
-            ArrayReview();
+            //ArrayReview();
+            int[] inputArray = ReadArrayFile();
+            PrintArray(inputArray, inputArray.Length, "File IO input array");
+            CreateEmploymentData();
+            ReadCSVFile();
+        }
+
+        public static void ReadCSVFile()
+        {
+            string[] fileinput = File.ReadAllLines(CSVFileName);
+            List<Employment> employments = new List<Employment>();
+            Employment anEmployment = null;
+            foreach(string item in fileinput)
+            {
+                //Parse the record line into the separate values of an
+                //   Employment instance
+                //using the same concept of int.Parse, let us create
+                //   a .Parse for our developer defined datatype
+                //  input will be a string
+                //  output will be an instance of Employment
+                //because we are using classname.method, the method will
+                //  be a static method within the specific classname
+
+                anEmployment = Employment.Parse(item);
+                employments.Add(anEmployment);
+            }
+
+            Console.WriteLine($"Lines read: {employments.Count}");
+            foreach(var line in employments)
+            {
+                Console.WriteLine($"{line.ToString()}");
+            }
+        }
+
+        public static void CreateEmploymentData()
+        {
+            List<Employment> employments = new List<Employment>();
+            employments.Add(new Employment("Instructor", SupervisoryLevel.TeamLeader, 35.5));
+            employments.Add(new Employment("System Developer", SupervisoryLevel.TeamMember, 7.65));
+            employments.Add(new Employment("Lab Tech", SupervisoryLevel.TeamMember, 3.5));
+            employments.Add(new Employment("Student Advisor", SupervisoryLevel.TeamMember, 3.5));
+
+            List<string> csvlines = new List<string>();
+            foreach(var item in employments)
+            {
+                csvlines.Add(item.ToString());
+            }
+            //write out all the csv lines
+            File.WriteAllLines(CSVFileName, csvlines);
+        }
+
+        public static int[] ReadArrayFile()
+        {
+            //read all the record lines from the input file
+            //each line is treated as a string
+            //the return datatype of ReadAllLines(filename) is an
+            //  array of strings
+            string[] fileinput = File.ReadAllLines(ArrayFileName);
+
+            //create an int [] of a specific size
+            //create the array with the number of lines read size
+            //the array property .Length will indicate the number of lines read
+            int[] myArray = new int[fileinput.Length];
+
+            //move string data to int array
+            for(int i = 0; i < fileinput.Length; i++)
+            {
+                //assumption is data in file is valid
+                //int is a struct of System.Int32
+                // .Parse is a method within the struct
+                // calling struct methods require structname.methodname
+                myArray[i] = int.Parse(fileinput[i]);
+            }
+            return myArray;
         }
 
         public static void ArrayReview()
