@@ -17,8 +17,9 @@ namespace PracticeConsole
             //ArrayReview();
             int[] inputArray = ReadArrayFile();
             PrintArray(inputArray, inputArray.Length, "File IO input array");
-            CreateEmploymentData();
+            //CreateEmploymentData();
             ReadCSVFile();
+           
         }
 
         public static void ReadCSVFile()
@@ -26,6 +27,7 @@ namespace PracticeConsole
             string[] fileinput = File.ReadAllLines(CSVFileName);
             List<Employment> employments = new List<Employment>();
             Employment anEmployment = null;
+            int badRecordCount = 0;
             foreach(string item in fileinput)
             {
                 //Parse the record line into the separate values of an
@@ -37,11 +39,20 @@ namespace PracticeConsole
                 //because we are using classname.method, the method will
                 //  be a static method within the specific classname
 
-                anEmployment = Employment.Parse(item);
-                employments.Add(anEmployment);
+                //the .TryParse is the same concept as int.TryParse
+
+                if(Employment.TryParse(item, out anEmployment))
+                {
+                    employments.Add(anEmployment);
+                }
+                else
+                {
+                    badRecordCount++;
+                }
+                
             }
 
-            Console.WriteLine($"Lines read: {employments.Count}");
+            Console.WriteLine($"Lines read: good : {employments.Count} bad: {badRecordCount} ");
             foreach(var line in employments)
             {
                 Console.WriteLine($"{line.ToString()}");
