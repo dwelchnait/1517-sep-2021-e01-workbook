@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;            //File IO
+using System.Text.Json;
 //using static System.Console;
 
 namespace PracticeConsole
@@ -13,13 +14,41 @@ namespace PracticeConsole
 
         static void Main(string[] args)
         {
-            //ClassObjectReview();
+            Person me = ClassObjectReview();
+            DisplayPerson(me);
             //ArrayReview();
-            int[] inputArray = ReadArrayFile();
-            PrintArray(inputArray, inputArray.Length, "File IO input array");
+            //int[] inputArray = ReadArrayFile();
+            //PrintArray(inputArray, inputArray.Length, "File IO input array");
             //CreateEmploymentData();
-            ReadCSVFile();
-           
+            //ReadCSVFile();
+
+            //Json FIle IO
+            string pathname = SaveAsJson(me);
+            Person jsonPerson = ReadAsJson(pathname);
+            Console.WriteLine("\n Data from JSON file\n");
+            DisplayPerson(jsonPerson);
+        }
+
+        public static string SaveAsJson(Person me)
+        {
+            string filename = $"{me.LastName}.json";
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                IncludeFields = true
+            };
+            string jsonstring = JsonSerializer.Serialize<Person>(me, options);
+            File.WriteAllText(filename, jsonstring);
+            return Path.GetFullPath(filename);
+        }
+
+        public static Person ReadAsJson(string pathname)
+        {
+            //get the text from the file
+            string jsonstring = File.ReadAllText(pathname);
+            //convert the text into the instance of the class
+            Person jsonperson = JsonSerializer.Deserialize<Person>(jsonstring);
+            return jsonperson;
         }
 
         public static void ReadCSVFile()
@@ -162,8 +191,8 @@ namespace PracticeConsole
             }
             Console.WriteLine("\n");
         }
-        public static void ClassObjectReview()
-        { 
+        public static Person ClassObjectReview()
+        {
             List<Employment> jobs = new List<Employment>();
 
             //declare and load Employment instance separately
@@ -213,7 +242,7 @@ namespace PracticeConsole
             //struct sample
             //remember structs are value types, not reference types
             //can initialize via constructor or object initializer
-             ResidentAddress address = new ResidentAddress(123, "Maple St.", null, null, "Edmonton", "AB");
+            ResidentAddress address = new ResidentAddress(123, "Maple St.", null, null, "Edmonton", "AB");
             //ResidentAddress address = new ResidentAddress
             //{
             //    //Number = 123, //when field is readonly in struct definition
@@ -222,34 +251,21 @@ namespace PracticeConsole
             //    ProvinceState = "AB"
 
             //};
-               
+
 
             Person me = new Person
             {
                 FirstName = "don",
                 LastName = "welch",
-                Address = address, 
+                Address = address,
                 EmploymentPositions = jobs
             };
-
-            //display the contents of Person
-            Console.WriteLine("Person:\n");
-            Console.WriteLine($"{me.LastName}, {me.FirstName} \n");
-            Console.WriteLine($"{me.Address.Number} {me.Address.Address1} \n" +
-                $"{me.Address.City}, {me.Address.ProvinceState}");
-            Console.WriteLine("Past/Present Employment:\n");
-            foreach (Employment item in me.EmploymentPositions)
-            {
-                Console.WriteLine($"\t{item.ToString()}");
-            }
-
+            
             //using a readonly non static class which can hold data
             //at the time of instanation, you must supply all required value data
             //      to your new instance
             EmploymentReadOnly altJob = new EmploymentReadOnly("Art Director", SupervisoryLevel.Supervisor, 4.5);
             Console.WriteLine($"\n\n*****\nEmployement ReadOnly\n\t{altJob.Title},{altJob.Level},{altJob.Years}\n*****\n");
-
-
 
             Employment badjob;
             Person badperson;
@@ -266,6 +282,24 @@ namespace PracticeConsole
             {
                 Console.WriteLine($"**********\n{ex.Message}\n**************");
             }
+
+            return me;
         }
+
+        public static void DisplayPerson(Person me)
+        {
+            //display the contents of Person
+            Console.WriteLine("Person:\n");
+            Console.WriteLine($"{me.LastName}, {me.FirstName} \n");
+            Console.WriteLine($"{me.Address.Number} {me.Address.Address1} \n" +
+                $"{me.Address.City}, {me.Address.ProvinceState}");
+            Console.WriteLine("Past/Present Employment:\n");
+            foreach (Employment item in me.EmploymentPositions)
+            {
+                Console.WriteLine($"\t{item.ToString()}");
+            }
+        }
+           
+        
     }
 }
