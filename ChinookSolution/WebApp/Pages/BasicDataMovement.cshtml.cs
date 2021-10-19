@@ -20,7 +20,7 @@ namespace WebApp.Pages
         //behaviours (aka methods)
         public void OnGet()
         {
-            //Default Request is OnGet(),
+            //Default Request event is OnGet(),
             //executed each time the page is enterd and/or refreshed
             //  if no form post with a RedirecToPage()
             Random rdn = new Random();
