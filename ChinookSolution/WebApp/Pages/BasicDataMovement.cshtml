@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id?}"
 @model WebApp.Pages.BasicDataMovementModel
 @{
 }
@@ -13,3 +13,23 @@ else
 {
     <p>Number was odd.</p>
 }
+
+<!--
+  helper tag: asp-for
+    the tag tie the control to data in the associated "code-behind" class (Model)
+
+-->
+<form method="post">
+    <label>
+        Enter a number
+        <input type="text" asp-for="id"/>
+    </label>
+    <br/>
+    <button type="submit" value="A" id="theButton" name="theButton"
+            asp-page-handler="AButton">A Button</button>
+    &nbsp;&nbsp;
+    <button type="submit" value="B" id="theButton" name="theButton"
+            asp-page-handler="BButton">B Button</button>
+    <br/>
+    <p style="color:green; font-weight:bold;">@Model.FeedbackMessage</p>
+</form>
