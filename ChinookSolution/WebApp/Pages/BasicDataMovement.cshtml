@@ -1,4 +1,4 @@
-﻿@page "{id?}"
+﻿@page "{id?}" 
 @model WebApp.Pages.BasicDataMovementModel
 @{
 }
@@ -23,6 +23,15 @@ else
     <label>
         Enter a number
         <input type="text" asp-for="id"/>
+    </label>
+    <label>
+        drop down list
+        <select asp-for="selection">
+            <option value="">Select ...</option>
+            <option value="1517">CPSC1517</option>
+            <option value="1012">COMP1012</option>
+            <option value="2018">DMIT2018</option>
+        </select>
     </label>
     <br/>
     <button type="submit" value="A" id="theButton" name="theButton"
