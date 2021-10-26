@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+#region Additonal Namespaces
+using WestWindSystem;
+using Microsoft.EntityFrameworkCore;
+#endregion
 
 namespace WebApp
 {
@@ -23,6 +29,12 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /* code a call to an extension method to complete the actual hooks for
+             * IServicecollection
+             */
+            services.AddBackendDependencies(options => options.UseSqlServer(
+                            Configuration.GetConnectionString("WestWindDB")));
+
             services.AddRazorPages();
         }
 
