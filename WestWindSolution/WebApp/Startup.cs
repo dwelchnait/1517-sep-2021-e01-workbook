@@ -29,12 +29,7 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /* code a call to an extension method to complete the actual hooks for
-             * IServicecollection
-             */
-            services.AddBackendDependencies(options => options.UseSqlServer(
-                            Configuration.GetConnectionString("WestWindDB")));
-
+            
             services.AddRazorPages();
         }
 
