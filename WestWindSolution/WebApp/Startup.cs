@@ -29,7 +29,17 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            //this method is used to register YOUR BLL classes so that the web application
+            //   can use them
+            //to minimumize possible damage to this file by my own typing and editing
+            //   we can setup a method else that can be maintained/altered without fear
+            //   of damaging code within this file
+            //this method will be an "extension method" attach to the IServiceCollection 
+            //   class
+            services.AddBackendDependencies(options => 
+                        options.UseSqlServer(
+                            Configuration.GetConnectionString("WWDB")));
+
             services.AddRazorPages();
         }
 
