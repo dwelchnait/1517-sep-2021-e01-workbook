@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-#region Additinal 
+#region Additional Namespaces
 using WestWindSystem.DAL;
 using WestWindSystem.Entities;
 #endregion
