@@ -1,0 +1,33 @@
+﻿@page "{regionid?}"
+@model WebApp.Pages.RegionQueryOneModel
+@{
+    ViewData["Title"] = "Pkey Region Query";
+}
+<h1>Query: Region query by primary key</h1>
+
+<p>@Model.FeedbackMessage</p>
+
+<form method="post">
+    <label>
+        Enter Region ID:
+        <input type="number" asp-for="regionid" placeholder="enter your region id number"/>
+    </label>
+    <button type="submit">Fetch By Id</button>
+    
+    <label>
+        RegionId:
+        <input type="text" readonly asp-for="regionInfo.RegionID" />
+    </label>
+    <label>
+        Description:
+        <input type="text" readonly asp-for="regionInfo.RegionDescription" />
+    </label>
+
+    @if (Model.regionInfo == null && Model.regionid > 0)
+    {
+        <p style="color:firebrick;font-weight:bold">
+            No region found for this region id.
+        </p>
+    }
+
+</form>
