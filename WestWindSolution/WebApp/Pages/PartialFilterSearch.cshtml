@@ -1,0 +1,27 @@
+﻿@page "{searcharg?}"
+@model WebApp.Pages.PartialFilterSearchModel
+@{
+    ViewData["Title"] = "Partial String Query";
+}
+<h1>Partial String Query resulting in a Table display</h1>
+
+<p>@Model.FeedbackMessage</p>
+
+<form method="post">
+    <label>
+        Enter Region Name:
+        <input type="text" asp-for="searcharg" placeholder="enter your region name (or part of)" />
+    </label>
+    <button type="submit" asp-page-handler="ByName">Fetch Regions</button>
+
+
+   
+    @if (Model.searcharg != null)
+        if (Model.regionInfo == null && Model.searcharg.Length > 0)
+        {
+            <p style="color:firebrick;font-weight:bold">
+                No region found for this name.
+            </p>
+        }
+
+</form>
