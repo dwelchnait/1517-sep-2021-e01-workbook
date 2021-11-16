@@ -12,7 +12,32 @@
         Enter Region ID:
         <input type="number" asp-for="regionid" placeholder="enter your region id number"/>
     </label>
-    <button type="submit">Fetch By Id</button>
+    <button type="submit" asp-page-handler="ByID">Fetch By Id</button>
+
+    <label>
+        Select the Region:
+        <select asp-for="selectregionid">
+            @* if you do not indicate a specific option to display
+        then the list defaults to the first option line*@
+            <option value="0">select ...</option>
+            @foreach (var item in Model.RegionList)
+            {
+                //to retain the selection you need to specific a row to be
+                //  the selected option
+                //this is done with the selected attribute on the value
+                if (item.RegionID == Model.regionid)
+                {
+                    <option value="@item.RegionID" selected>@item.RegionDescription</option>
+
+                }
+                else
+                {
+                    <option value="@item.RegionID">@item.RegionDescription</option>
+                }
+            }
+        </select>
+    </label>
+    <button type="submit" asp-page-handler="BySelection">Fetch select region</button>
     
     <label>
         RegionId:

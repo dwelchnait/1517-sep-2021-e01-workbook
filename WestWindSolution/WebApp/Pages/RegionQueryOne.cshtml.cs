@@ -35,6 +35,11 @@ namespace WebApp.Pages
 
         [BindProperty(SupportsGet = true)]
         public int? regionid { get; set; }
+
+        public List<Region> RegionList { get; set; }
+
+        [BindProperty]
+        public int selectregionid { get; set; }
         #endregion
 
 
@@ -49,9 +54,14 @@ namespace WebApp.Pages
             {
                 regionInfo = _regionservices.Region_GetByID((int)regionid);
             }
+
+            //this query obtains a list of all the regions on file
+            //this query fill the <select> on the web page
+            //this query MUST be executed on each refresh of the page
+            RegionList = _regionservices.Region_List();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPostByID()
         {
             if (regionid.HasValue && regionid <= 0)
             {
@@ -65,7 +75,23 @@ namespace WebApp.Pages
             //RedirectToPage will cause the Post Redirect Get response
             return RedirectToPage(new { regionid = regionid});
         }
-        
+
+        public IActionResult OnPostBySelection()
+        {
+            regionid = selectregionid;
+            //the <select> has a prompt line
+            //this prompt line is not a valid selection
+            //if the returned value from the <select> is the prompt line then
+            //  regionid will be 0
+            if (selectregionid == 0)
+            {
+                FeedbackMessage = "Select a region to display";
+                regionid = null;
+            }
+            
+            //RedirectToPage will cause the Post Redirect Get response
+            return RedirectToPage(new { regionid = regionid });
+        }
 
     }
 }
