@@ -15,7 +15,7 @@ namespace WebApp.Pages
 {
     public class PartialFilterSearchModel : PageModel
     {
-        #region Private service fields, FeedBackMessage & constructor
+        #region Private service fields, FeedBackMessage & constructor (dependency injection)
 
         private readonly RegionServices _regionservices;
 
@@ -38,6 +38,26 @@ namespace WebApp.Pages
         
         public void OnGet()
         {
+            // check to see if you have an argument value
+            if(!string.IsNullOrWhiteSpace(searcharg))
+            {
+                //send the argument value to the backend to obtain your data
+                //the data will be place in a property that will be bound to 
+                //  the output on the web page
+                regionInfo = _regionservices.Region_GetByPartialDescription(searcharg);
+            }
+        }
+
+        public IActionResult OnPostByName()
+        {
+            //check that a value was really placed in the input control
+            //if not: give Feedback on requiring a value
+            //return the enterd value to OnGet using the POst Redirect Get technique
+            if ( string.IsNullOrWhiteSpace(searcharg))
+            {
+                FeedbackMessage = "Enter a region description before searching";
+            }
+            return RedirectToPage(new { searcharg = searcharg });
         }
     }
 }

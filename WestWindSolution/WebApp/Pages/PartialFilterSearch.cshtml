@@ -17,11 +17,38 @@
 
    
     @if (Model.searcharg != null)
-        if (Model.regionInfo == null && Model.searcharg.Length > 0)
+        if (Model.regionInfo.Count() == 0 && Model.searcharg.Length > 0)
         {
             <p style="color:firebrick;font-weight:bold">
                 No region found for this name.
             </p>
+        }
+        else
+        {
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.regionInfo)
+                    {
+                        <tr>
+                            <td>@item.RegionID</td>
+                            <td>@item.RegionDescription</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    @* optional area
+                        use for summary information
+                                paging
+                                input of new records in a database table*@
+                </tfoot>
+            </table>
         }
 
 </form>
