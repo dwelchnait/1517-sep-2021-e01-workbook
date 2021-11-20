@@ -39,5 +39,6 @@ namespace WestWindSystem.DAL
 
         public DbSet<Region> Regions { get; set; }
         public DbSet<BuildVersion> BuildVersions { get; set; }
+        public DbSet<Territory> Territories { get; set; }
     }
 }

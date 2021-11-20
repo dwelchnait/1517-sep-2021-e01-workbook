@@ -58,6 +58,13 @@ namespace WestWindSystem
                 var context = serviceProvider.GetRequiredService<WestWindContext>();
                 return new RegionServices(context);
             });
+
+            services.AddTransient<TerritoryServices>((serviceProvider) =>
+            {
+                var context = serviceProvider.GetRequiredService<WestWindContext>();
+                return new TerritoryServices(context);
+            });
+
         }
     }
 }
