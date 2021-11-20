@@ -1,6 +1,47 @@
 ﻿@page "{regionid?}"
 @model WebApp.Pages.TerritoriesCRUDModel
-@{            
+@{
     ViewData["Title"] = "Territory CRUD";
 }
 <h1>Territory CRUD</h1>
+
+<blockquote>Territories for region: @Model.regionid</blockquote>
+@if (Model.regionid != null)
+    if (Model.territoryInfo.Count() == 0)
+    {
+        <p style="color:firebrick;font-weight:bold">
+            No territories found for the region.
+        </p>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Region</th>                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.territoryInfo)
+                {
+                    <tr>
+                        <td>@item.TerritoryID</td>
+                        <td>
+                            
+                                @item.TerritoryDescription
+                           
+                        </td>
+                        <td>@item.RegionID</td>
+                    </tr>
+                }
+            </tbody>
+            @* <tfoot>
+                    optional area
+                        use for summary information
+                                paging
+                                input of new records in a database table
+                </tfoot>*@
+        </table>
+    }

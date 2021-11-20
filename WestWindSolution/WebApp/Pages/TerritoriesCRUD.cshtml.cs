@@ -38,6 +38,14 @@ namespace WebApp.Pages
 
         public void OnGet()
         {
+            if (regionid.HasValue)
+            {
+                //send the argument value to the backend to obtain your data
+                //the data will be place in a property that will be bound to 
+                //  the output on the web page
+                territoryInfo = _territoryservices.Territory_GetForRegion((int)regionid);
+            }
+
         }
     }
 }
