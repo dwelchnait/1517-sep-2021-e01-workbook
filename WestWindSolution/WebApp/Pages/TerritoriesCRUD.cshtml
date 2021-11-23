@@ -37,11 +37,33 @@
                     </tr>
                 }
             </tbody>
-            @* <tfoot>
-                    optional area
-                        use for summary information
-                                paging
-                                input of new records in a database table
-                </tfoot>*@
-        </table>
+            <tfoot>
+                @*   optional area
+                    use for summary information
+                            paging
+                            input of new records in a database table*@
+
+                <tr>
+                    <td colspan="3">
+                        @{ 
+                            foreach(var pageRef in Model.Pager)
+                            {
+                                if (pageRef == Model.Pager.CurrentPage)
+                                {
+                                    <b>@pageRef.Text</b>
+                                }
+                                else
+                                {
+                                    <a title="Page @pageRef.Page"
+                                       asp-page="/TerritoriesCRUD"
+                                       asp-route-currentpage="@pageRef.Page">
+                                        @pageRef.Text
+                                    </a>
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+            </tfoot>
+</table>
     }
