@@ -6,6 +6,11 @@
 <h1>Territory CRUD</h1>
 
 <blockquote>Territories for region: @Model.regionid</blockquote>
+
+<form method="post">
+    <button type="submit">New Territory</button>
+</form>
+
 @if (Model.regionid != null)
     if (Model.territoryInfo.Count() == 0)
     {
@@ -29,9 +34,9 @@
                     <tr>
                         <td>@item.TerritoryID</td>
                         <td>
-                            
+                            <a href="/CRUDPage/@item.TerritoryID">
                                 @item.TerritoryDescription
-                           
+                            </a>
                         </td>
                         <td>@item.RegionID</td>
                     </tr>

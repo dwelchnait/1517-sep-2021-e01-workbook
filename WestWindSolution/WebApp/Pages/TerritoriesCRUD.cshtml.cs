@@ -73,5 +73,10 @@ namespace WebApp.Pages
             }
 
         }
+
+        public IActionResult OnPost()
+        {
+            return Redirect("/CRUDPage");
+        }
     }
 }
