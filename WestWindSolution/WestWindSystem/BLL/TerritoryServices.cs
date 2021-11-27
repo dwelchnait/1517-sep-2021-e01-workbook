@@ -46,6 +46,13 @@ namespace WestWindSystem.BLL
             return info.Skip(skipRows).Take(pagesize).ToList();
         }
 
+        
+        public Territory Territory_GetyID(string territoryid)
+        {
+            return _context.Territories
+                            .Where(x => x.TerritoryID.Equals(territoryid))
+                            .FirstOrDefault();
+        }
         #endregion
     }
 }

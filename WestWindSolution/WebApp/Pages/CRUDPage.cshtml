@@ -4,3 +4,29 @@
     ViewData["Title"] = "CRUD Page";
 }
 <h1>Record Maintenance for Territories</h1>
+
+@if (Model.HasFeedback)
+{
+    <blockquote>@Model.FeedbackMessage</blockquote>
+}
+
+<form method="post">
+    <label>
+        Territory ID:
+        <input type="text" readonly asp-for="territoryInfo.TerritoryID" />
+    </label>
+    <label>
+        Description:
+        <input type="text" asp-for="territoryInfo.TerritoryDescription" />
+    </label>
+    <label>
+        Region:
+        <select asp-for="territoryInfo.RegionID">
+            <option value="0">select ...</option>
+            @foreach(var item in Model.regionInfo)
+            {
+                <option value="@item.RegionID">@item.RegionDescription.</option>
+            }
+        </select>
+    </label>
+</form>

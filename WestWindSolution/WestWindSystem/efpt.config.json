@@ -14,10 +14,6 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[Addresses]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[BuildVersion]",
          "ObjectType": 0
       },
@@ -26,55 +22,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Customers]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Employees]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[EmployeeTerritories]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ManifestItems]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[OrderDetails]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Orders]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Payments]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[PaymentTypes]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Products]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[Regions]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Shipments]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Shippers]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Suppliers]",
          "ObjectType": 0
       },
       {
