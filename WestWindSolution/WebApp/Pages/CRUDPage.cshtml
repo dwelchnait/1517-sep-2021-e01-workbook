@@ -11,9 +11,22 @@
 }
 
 <form method="post">
+    @* TerritoryID is a non identity primary key
+        If the event is an update or remove then the existing pkey will be
+            shown and NOT allowed to be changed
+        If the event is an add then the pkey must be able to be entered by
+            the user, thus the field needs to be changable*@
     <label>
         Territory ID:
-        <input type="text" readonly asp-for="territoryInfo.TerritoryID" />
+        @if (Model.territoryInfo != null)
+        {
+            <input type="text" readonly asp-for="territoryInfo.TerritoryID" />
+        }
+        else
+        {
+            <input type="text" asp-for="territoryInfo.TerritoryID" />
+        }
+
     </label>
     <label>
         Description:
@@ -23,10 +36,28 @@
         Region:
         <select asp-for="territoryInfo.RegionID">
             <option value="0">select ...</option>
-            @foreach(var item in Model.regionInfo)
+            @foreach (var item in Model.regionInfo)
             {
                 <option value="@item.RegionID">@item.RegionDescription.</option>
             }
         </select>
     </label>
+    @if (Model.territoryInfo != null)
+    {
+        <button type="submit" asp-page-handler="New" disabled>Save New</button>
+        <button type="submit" asp-page-handler="Update">Update</button>
+        <button type="submit" asp-page-handler="Remove"
+                onclick="return confirm('Are you sure you wish to remove the territory?')">Remove</button>
+        <button type="submit" asp-page-handler="Clear">Clear</button>
+        <button type="submit" asp-page-handler="Back">New Search</button>
+    }
+    else
+    {
+        <button type="submit" asp-page-handler="New">Save New</button>
+        <button type="submit" asp-page-handler="Update" disabled>Update</button>
+        <button type="submit" asp-page-handler="Remove" disabled
+                onclick="return confirm('Are you sure you wish to remove the territory?')">Remove</button>
+        <button type="submit" asp-page-handler="Clear">Clear</button>
+        <button type="submit" asp-page-handler="Back">New Search</button>
+    }
 </form>

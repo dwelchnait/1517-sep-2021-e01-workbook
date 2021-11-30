@@ -53,5 +53,28 @@ namespace WebApp.Pages
             }
             regionInfo = _regionservices.Region_List();
         }
+
+        public IActionResult OnPostAdd()
+        {
+            //TODO: a comment in Add
+            return Page();
+        }
+        public IActionResult OnPostUpdate()
+        {
+            //TODO: a comment in update
+            return Page();
+        }
+
+        public IActionResult OnPostRemove()
+        {
+            //TODO: a comment in remove
+            return Page();
+        }
+
+        public IActionResult OnPostClear()
+        {
+            //TODO: a comment in clear
+            return Page();
+        }
     }
 }
