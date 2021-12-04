@@ -62,13 +62,16 @@ namespace WebApp.Pages
             regionInfo = _regionservices.Region_List();
         }
 
-        public IActionResult OnPostAdd()
+        public IActionResult OnPostNew()
         {
             //this has to be done in a user freindly error handling environment
             try
             {
                 // call the appropriate TerritoryService to attempt to add the
-                //    data to the database
+                //    data to the
+                // in this example there is NO returning value for the pkey BECAUSE
+                //     TerritoryID is NOT an identiiy pkey
+                _territoryservices.Territory_Add(territoryInfo);
                 FeedbackMessage = "Teritory has been added";
                 return RedirectToPage(new { territoryid = territoryid });
             }
@@ -87,7 +90,17 @@ namespace WebApp.Pages
             {
                 // call the appropriate TerritoryService to attempt to update the
                 //    data on the database
-                FeedbackMessage = "Territory has been updated";
+                int rowsaffected = _territoryservices.Territory_Update(territoryInfo);
+                if (rowsaffected > 0)
+                {
+                    FeedbackMessage = "Territory has been updated";
+
+                }
+                else
+                {
+                    FeedbackMessage = "Territory has been not been updated. Territory does not appear to be on file. Refresh your search.";
+
+                }
                 return RedirectToPage(new { territoryid = territoryid });
             }
             catch (Exception ex)
@@ -107,7 +120,17 @@ namespace WebApp.Pages
             {
                 // call the appropriate TerritoryService to attempt to remove the
                 //    data from the database
-                FeedbackMessage = "Territory has been removed";
+                int rowsaffected = _territoryservices.Territory_Delete(territoryInfo);
+                if (rowsaffected > 0)
+                {
+                    FeedbackMessage = "Territory has been removed";
+
+                }
+                else
+                {
+                    FeedbackMessage = "Territory has been not been removed. Territory does not appear to be on file. Refresh your search.";
+
+                }
                 return RedirectToPage(new { territoryid = "" });
             }
             catch (Exception ex)
@@ -127,7 +150,7 @@ namespace WebApp.Pages
         }
         public IActionResult OnPostBack()
         {
-            return RedirectToPage("/PartialFilterSearch");
+            return Redirect("/PartialFilterSearch");
         }
 
         private Exception GetInnerException(Exception ex)
