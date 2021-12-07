@@ -64,82 +64,101 @@ namespace WebApp.Pages
 
         public IActionResult OnPostNew()
         {
+            if (ModelState.IsValid)
+            {
+          
             //this has to be done in a user freindly error handling environment
-            try
-            {
-                // call the appropriate TerritoryService to attempt to add the
-                //    data to the
-                // in this example there is NO returning value for the pkey BECAUSE
-                //     TerritoryID is NOT an identiiy pkey
-                _territoryservices.Territory_Add(territoryInfo);
-                FeedbackMessage = "Teritory has been added";
-                return RedirectToPage(new { territoryid = territoryid });
+                try
+                {
+                    
+                    // call the appropriate TerritoryService to attempt to add the
+                    //    data to the
+                    // in this example there is NO returning value for the pkey BECAUSE
+                    //     TerritoryID is NOT an identiiy pkey
+                    _territoryservices.Territory_Add(territoryInfo);
+                    FeedbackMessage = "Teritory has been added";
+                    return RedirectToPage(new { territoryid = territoryid });
+                }
+                catch (Exception ex)
+                {
+                    ErrorMessage = GetInnerException(ex).Message;
+                    regionInfo = _regionservices.Region_List(); //retreive data for the dropdownlist
+                    return Page(); //Page IS NOT the same as RedirectToPage, does not go to OnGet
+                }
             }
-            catch (Exception ex)
+            else
             {
-                ErrorMessage = GetInnerException(ex).Message;
-                regionInfo = _regionservices.Region_List(); //retreive data for the dropdownlist
-                return Page(); //Page IS NOT the same as RedirectToPage, does not go to OnGet
+                return Page();
             }
-
         }
         public IActionResult OnPostUpdate()
         {
-            //this has to be done in a user freindly error handling environment
-            try
+            if (ModelState.IsValid)
             {
-                // call the appropriate TerritoryService to attempt to update the
-                //    data on the database
-                int rowsaffected = _territoryservices.Territory_Update(territoryInfo);
-                if (rowsaffected > 0)
+                //this has to be done in a user freindly error handling environment
+                try
                 {
-                    FeedbackMessage = "Territory has been updated";
+                    // call the appropriate TerritoryService to attempt to update the
+                    //    data on the database
+                    int rowsaffected = _territoryservices.Territory_Update(territoryInfo);
+                    if (rowsaffected > 0)
+                    {
+                        FeedbackMessage = "Territory has been updated";
 
+                    }
+                    else
+                    {
+                        FeedbackMessage = "Territory has been not been updated. Territory does not appear to be on file. Refresh your search.";
+
+                    }
+                    return RedirectToPage(new { territoryid = territoryid });
                 }
-                else
+                catch (Exception ex)
                 {
-                    FeedbackMessage = "Territory has been not been updated. Territory does not appear to be on file. Refresh your search.";
-
+                    ErrorMessage = GetInnerException(ex).Message;
+                    regionInfo = _regionservices.Region_List(); //retreive data for the dropdownlist
+                    return Page(); //Page IS NOT the same as RedirectToPage, does not go to OnGet
                 }
-                return RedirectToPage(new { territoryid = territoryid });
             }
-            catch (Exception ex)
+            else
             {
-                ErrorMessage = GetInnerException(ex).Message;
-                regionInfo = _regionservices.Region_List(); //retreive data for the dropdownlist
-                return Page(); //Page IS NOT the same as RedirectToPage, does not go to OnGet
+                return Page();
             }
-
         }
 
         public IActionResult OnPostRemove()
         {
-            
-            //this has to be done in a user freindly error handling environment
-            try
+            if (ModelState.IsValid)
             {
-                // call the appropriate TerritoryService to attempt to remove the
-                //    data from the database
-                int rowsaffected = _territoryservices.Territory_Delete(territoryInfo);
-                if (rowsaffected > 0)
+                //this has to be done in a user freindly error handling environment
+                try
                 {
-                    FeedbackMessage = "Territory has been removed";
+                    // call the appropriate TerritoryService to attempt to remove the
+                    //    data from the database
+                    int rowsaffected = _territoryservices.Territory_Delete(territoryInfo);
+                    if (rowsaffected > 0)
+                    {
+                        FeedbackMessage = "Territory has been removed";
 
+                    }
+                    else
+                    {
+                        FeedbackMessage = "Territory has been not been removed. Territory does not appear to be on file. Refresh your search.";
+
+                    }
+                    return RedirectToPage(new { territoryid = "" });
                 }
-                else
+                catch (Exception ex)
                 {
-                    FeedbackMessage = "Territory has been not been removed. Territory does not appear to be on file. Refresh your search.";
-
+                    ErrorMessage = GetInnerException(ex).Message;
+                    regionInfo = _regionservices.Region_List(); //retreive data for the dropdownlist
+                    return Page(); //Page IS NOT the same as RedirectToPage, does not go to OnGet
                 }
-                return RedirectToPage(new { territoryid = "" });
             }
-            catch (Exception ex)
+            else
             {
-                ErrorMessage = GetInnerException(ex).Message;
-                regionInfo = _regionservices.Region_List(); //retreive data for the dropdownlist
-                return Page(); //Page IS NOT the same as RedirectToPage, does not go to OnGet
+                return Page();
             }
-            
         }
 
         public IActionResult OnPostClear()

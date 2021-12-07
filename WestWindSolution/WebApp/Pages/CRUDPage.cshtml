@@ -3,16 +3,24 @@
 @{
     ViewData["Title"] = "CRUD Page";
 }
+
+@section OptHead{
+    <partial name="_CustomCSS" />
+}
+@section Scripts{ 
+    <partial name="_ValidationScriptsPartial" />
+}
+
 <h1>Record Maintenance for Territories</h1>
 
 @if (Model.HasFeedback)
 {
-    <blockquote>@Model.FeedbackMessage</blockquote>
+    <blockquote class="success">@Model.FeedbackMessage</blockquote>
 }
 
 @if (Model.HasError)
 {
-    <blockquote>@Model.ErrorMessage</blockquote>
+    <blockquote class="danger">@Model.ErrorMessage</blockquote>
 }
 
 <form method="post">
@@ -20,7 +28,19 @@
         If the event is an update or remove then the existing pkey will be
             shown and NOT allowed to be changed
         If the event is an add then the pkey must be able to be entered by
-            the user, thus the field needs to be changable*@
+            the user, thus the field needs to be changable
+        
+        Validation for type=""number":
+          by default the step unit is 1 (a whole number)
+          for any other step unit you need to explicitly state the step
+                example $,  step="0.01"
+
+        Range:
+        min="value" max="value" (can be used independently
+        
+        A Required field
+        key word required)
+        *@
     <label>
         Territory ID:
         @if (Model.territoryInfo != null)
@@ -30,12 +50,14 @@
         else
         {
             <input type="text" asp-for="territoryInfo.TerritoryID" />
+            <span asp-validation-for="territoryInfo.TerritoryID"></span>
         }
 
     </label>
     <label>
         Description:
         <input type="text" asp-for="territoryInfo.TerritoryDescription" />
+        <span asp-validation-for="territoryInfo.TerritoryDescription"></span>
     </label>
     <label>
         Region:
@@ -55,8 +77,8 @@
                 onclick="return confirm('Are you sure you wish to remove the territory?')">
             Remove
         </button>
-        <button type="submit" asp-page-handler="Clear">Clear</button>
-        <button type="submit" asp-page-handler="Back">New Search</button>
+        <button type="submit" asp-page-handler="Clear" formnovalidate>Clear</button>
+        <button type="submit" asp-page-handler="Back" formnovalidate>New Search</button>
     }
     else
     {
@@ -66,7 +88,7 @@
                 onclick="return confirm('Are you sure you wish to remove the territory?')">
             Remove
         </button>
-        <button type="submit" asp-page-handler="Clear">Clear</button>
-        <button type="submit" asp-page-handler="Back">New Search</button>
+        <button type="submit" asp-page-handler="Clear" formnovalidate>Clear</button>
+        <button type="submit" asp-page-handler="Back" formnovalidate>New Search</button>
     }
 </form>
